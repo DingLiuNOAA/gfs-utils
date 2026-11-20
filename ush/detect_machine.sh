@@ -29,6 +29,8 @@ case $(hostname -f) in
 
   gaea6[1-8])          MACHINE_ID=gaeac6 ;; ### gaea61-68
   gaea6[1-8].ncrc.gov) MACHINE_ID=gaeac6 ;; ### gaea61-68
+  gaea7[1-8])          MACHINE_ID=gaeac7 ;; ### gaea71-76
+  gaea7[1-8].ncrc.gov) MACHINE_ID=gaeac7 ;; ### gaea71-76
 
   hfe0[1-9]) MACHINE_ID=hera ;; ### hera01-09
   hfe1[0-2]) MACHINE_ID=hera ;; ### hera10-12
@@ -99,6 +101,9 @@ elif [[ -d /gpfs/f5 ]]; then
 elif [[ -d /gpfs/f6 ]]; then
   # We are on GAEAC6.
   MACHINE_ID=gaeac6
+elif [[ -d /gpfs/f7 ]]; then
+  # We are on GAEAC7.
+  MACHINE_ID=gaeac7
 elif [[ -d /glade/u ]]; then
   # We are on DERECHO.
   MACHINE_ID=derecho

@@ -2,15 +2,16 @@ list(APPEND fortran_src
   fbwndgfs.F
 )
 
-if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -r8 -i4 -convert big_endian -assume byterecl")
-elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fdefault-real-8 -fdefault-integer-4 -fconvert=big-endian")
-endif()
-
 set(exe_name fbwndgfs.x)
 add_executable(${exe_name} ${fortran_src})
-target_link_libraries(${exe_name} PRIVATE bacio::bacio_4
+
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")
+  target_compile_options(${exe_name} PRIVATE -r8 -i4 -convert big_endian -assume byterecl)
+elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
+  target_compile_options(${exe_name} PRIVATE -fdefault-real-8 -fdefault-integer-4 -fconvert=big-endian)
+endif()
+
+target_link_libraries(${exe_name} PRIVATE bacio::bacio
                                           ip::ip_d
                                           w3emc::w3emc_d)
 

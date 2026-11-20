@@ -53,6 +53,16 @@ elif [[ ${MACHINE_ID} == gaeac6 ]]; then
     fi
     module reset
 
+elif [[ ${MACHINE_ID} = gaeac7 ]]; then
+    # We are on GAEA C7.
+    # make sure the /ncrc/proj automount is awake
+    stat /autofs/ncrc-svm1_proj >/dev/null 2>&1
+    if (! eval module help > /dev/null 2>&1); then
+        source /sw/gaea-c7/lmod/9.4.3/init/bash
+    fi
+    module reset
+    set -u
+
 elif [[ ${MACHINE_ID} == derecho* ]]; then
     # We are on NCAR derecho
     if ( ! eval module help > /dev/null 2>&1 ) ; then
